@@ -1,0 +1,1811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SIM Data Analytics Club</title>
+  <link rel="icon" href="assets/images/logo.svg">
+  <!-- Local Bootstrap 4 CSS -->
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <!-- Bootstrap Icons from node_modules -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body, button, input, select, textarea {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, 
+                   Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    }
+
+    body {
+      background-color: #121212;
+      color: #e0e0e0;
+      padding-top: 56px;
+    }
+
+    a {
+      color: #0d6efd;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Navbar */
+    .navbar {
+      background-color: #1c1c1c;
+    }
+    .navbar-dark .navbar-brand {
+      color: #fff;
+      font-weight: 600;
+    }
+    .navbar-dark .navbar-nav .nav-link {
+      color: #e0e0e0;
+    }
+    .navbar-dark .navbar-nav .nav-link:hover {
+      color: #fff;
+    }
+
+    .navbar-toggler {
+      background-color: #2c2c2c;
+      border: none;
+    }
+    .navbar-toggler:hover {
+      background-color: #3c3c3c;
+    }
+
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0,0,0,.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    }
+
+    /* Hero Section */
+    .hero {
+      background: url('assets/images/cover.jpg') center center/cover no-repeat;
+      min-height: 80vh;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+      position: relative;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      top:0; left:0; right:0; bottom:0;
+      background: rgba(0,0,0,0.6);
+      z-index: 1;
+    }
+    .hero > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      max-width: 600px;
+      margin-bottom: 2rem;
+    }
+
+    .hero .btn-primary {
+      background-color: #0d6efd;
+      border: none;
+    }
+    .hero .btn-primary:hover {
+      background-color: #0b5ed7;
+    }
+
+    section {
+      padding: 4rem 0;
+    }
+
+    h2 {
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    /* About and Events */
+    .lead {
+      font-size: 1.25rem;
+      color: #b0b0b0;
+    }
+
+    .event-card {
+      background-color: #1c1c1c;
+      border: none;
+
+      margin-top: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .event-card img {
+      height: 200px;
+      object-fit: cover;
+    }
+    .event-card .card-body {
+      color: #e0e0e0;
+    }
+    .event-card .btn-outline-primary {
+      border-color: #0d6efd;
+      color: #0d6efd;
+    }
+    .event-card .btn-outline-primary:hover {
+      background-color: #0d6efd;
+      color: #fff;
+    }
+
+    /* Timeline Section (Double-Sided) */
+    @media (min-width: 992px) {
+      #timeline h2 {
+        margin-bottom: 4rem; 
+      }
+    }
+
+    #timeline {
+      position: relative;
+    }
+
+    .timeline {
+      position: relative;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      background: #333;
+      z-index: 0;
+      top: 20px;
+      bottom: 20px;
+    }
+
+    .timeline-item {
+      position: relative;
+      z-index: 1;
+      margin-bottom: 3rem;
+    }
+
+    .timeline-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .timeline-icon {
+      width: 40px;
+      height: 40px;
+      background-color: #1c1c1c;
+      border: 2px solid #0d6efd;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      position: relative;
+    }
+
+    .timeline-icon i {
+      color: #0d6efd;
+      font-size: 1.2rem;
+    }
+
+    .timeline-content {
+      background-color: #1c1c1c;
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      color: #e0e0e0;
+      position: relative;
+      z-index: 2;
+    }
+
+    .timeline-step {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 2;
+    }
+
+    /* Desktop layout: alternate sides */
+    @media (min-width: 768px) {
+      .timeline-item:nth-child(odd) .timeline-content {
+        text-align: right;
+      }
+      .timeline-item:nth-child(even) .timeline-content {
+        text-align: left;
+      }
+    }
+
+    /* Mobile layout: stack centered */
+    @media (max-width: 767.98px) {
+      .timeline-item {
+        margin-bottom: 2rem;
+      }
+      .timeline-step, .timeline-icon {
+        margin: 0 auto;
+      }
+      .timeline-content {
+        margin-top: 1rem;
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+      }
+    }
+
+    /* Team Section */
+    .team-member img {
+      height: 200px;
+      width: 200px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-bottom: 1rem;
+    }
+
+    /* Footer - Now acts as contact section */
+    footer {
+      background: #1c1c1c;
+      color: #b0b0b0;
+      padding: 2rem 0;
+      text-align: center;
+    }
+    footer a {
+      color: #b0b0b0;
+      font-size: 2rem; /* Increased icon size */
+      margin: 0 1rem;
+      display: inline-block;
+    }
+    footer a:hover {
+      color: #fff;
+    }
+    footer h4 {
+      margin-top: 1.5rem;
+      font-size: 1.5rem;
+      color: #fff;
+    }
+    footer p {
+      color: #b0b0b0;
+    }
+
+    /* Modal */
+    .modal-dialog {
+      max-width: 300px;
+      margin: 3rem auto;
+    }
+    .modal-content {
+      background-color: #1c1c1c;
+      border-radius: 8px;
+      border: none;
+      color: #e0e0e0;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    }
+    .modal-body {
+      padding: 2rem;
+      position: relative;
+      text-align: center;
+    }
+    .modal-body .close-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.75rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: #e0e0e0;
+    }
+    .modal-body .nav-links a {
+      display: block;
+      font-size: 1.2rem;
+      margin: 1.5rem 0;
+      color: #0d6efd;
+      text-decoration: none;
+    }
+    .modal-body .nav-links a:hover {
+      color: #fff;
+    }
+    .modal-body .nav-links a i {
+      margin-right: 0.5rem;
+      font-size: 1.2rem;
+      vertical-align: middle;
+    }
+
+ /* Carousel Styles */
+ #heroCarousel,
+  #heroCarousel .carousel-item {
+    height: 80vh; /* Fixed height for carousel and its items on larger screens */
+  }
+
+  /* Responsive height adjustment for smaller screens */
+  @media (max-width: 767.98px) {
+    #heroCarousel,
+    #heroCarousel .carousel-item {
+      height: 60vh; /* Reduced height for better visibility on mobile */
+    }
+
+    #heroCarousel .carousel-caption {
+      padding: 0.5rem 1rem; /* Reduced padding for smaller screens */
+    }
+
+    #heroCarousel .carousel-caption h1 {
+      font-size: 0.8rem; /* Smaller font size for titles */
+    }
+
+    #heroCarousel .carousel-caption p {
+      font-size: 0.8rem; /* Smaller font size for descriptions */
+    }
+
+    #heroCarousel .carousel-caption .btn {
+      font-size: 0.8rem; /* Smaller button text */
+      padding: 0.5rem 0.5rem; /* Reduced button padding */
+    }
+
+    /* Adjust carousel control icons size on mobile */
+    #heroCarousel .carousel-control-prev-icon,
+    #heroCarousel .carousel-control-next-icon {
+      width: 30px;
+      height: 30px;
+      background-size: 30px 30px; /* Ensures icons scale properly */
+    }
+
+    /* Adjust control positioning slightly for mobile */
+    #heroCarousel .carousel-control-prev {
+      left: 10px;
+    }
+
+    #heroCarousel .carousel-control-next {
+      right: 10px;
+    }
+  }
+
+  #heroCarousel .carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Maintains aspect ratio and ensures the image covers the entire container */
+  }
+
+  /* Carousel Caption Styling */
+  #heroCarousel .carousel-caption {
+    background-color: rgba(0, 0, 0, 0.65); /* Semi-transparent background for readability */
+    padding: 1rem 2rem;
+    border-radius: 0.5rem;
+  }
+
+  #heroCarousel .carousel-caption h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+  }
+
+  #heroCarousel .carousel-caption p {
+    font-size: 1.1rem;
+    color: #e0e0e0;
+  }
+
+  #heroCarousel .carousel-caption .btn {
+    margin-top: 1rem;
+  }
+
+  /* Carousel Control Styling */
+  #heroCarousel .carousel-control-prev,
+  #heroCarousel .carousel-control-next {
+    width: 5%; /* Adjust width as needed */
+  }
+
+  #heroCarousel .carousel-control-prev-icon,
+  #heroCarousel .carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    border-radius: 50%; /* Circular background for the icons */
+    padding: 10px; /* Space around the icon */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+    transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition effects */
+  }
+
+  #heroCarousel .carousel-control-prev-icon:hover,
+  #heroCarousel .carousel-control-next-icon:hover {
+    background-color: rgba(0, 0, 0, 0.7); /* Darker background on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5); /* Enhanced shadow on hover */
+  }
+
+  /* Ensure controls are vertically centered */
+  #heroCarousel .carousel-control-prev,
+  #heroCarousel .carousel-control-next {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  /* Position controls slightly inward */
+  #heroCarousel .carousel-control-prev {
+    left: 15px; /* Distance from the left edge */
+  }
+
+  #heroCarousel .carousel-control-next {
+    right: 15px; /* Distance from the right edge */
+  }
+
+/* Custom Fonts Import */
+@font-face {
+  font-family: 'CY GROTESK GRAND';
+  src: url('assets/fonts/kobuzan-cy-grotesk-grand-dark.tff') format('truetype');
+}
+
+@font-face {
+  font-family: 'League Spartan';
+  src: url('assets/fonts/league-spartan.bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Glacial Indifference';
+  src: url('assets/fonts/glacial-indifference.regular.ttf') format('truetype');
+}
+
+/* Font Assignments */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'League Spartan', sans-serif; /* For all headings */
+}
+
+.section-title {
+  font-family: 'CY GROTESK GRAND', sans-serif; /* For subheadings */
+}
+
+p, span, a, li, .text-muted {
+  font-family: 'Glacial Indifference', sans-serif; /* For paragraph text */
+}
+
+
+/* Define Custom Color Variables */
+:root {
+  --main-bg-color: #333d2a;        /* Global Background */
+  --side-bg-color: #cedcc1;     /* Container Background */
+  --main-text-color: #333d2a;   /* Text Color */
+  --side-text-color: #cedcc1; /* Muted Text Color */
+}
+
+/* Apply Global Background Color */
+body {
+  background-color: var(--side-bg-color);
+  color: var(--main-bg-color);
+  font-family: 'Glacial Indifference', sans-serif;
+} 
+
+/* Text Styling */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'CY GROTESK GRAND', sans-serif;
+}
+
+.section-title, .navbar-brand {
+  font-family: 'League Spartan', sans-serif;
+}
+
+p, span, a, li, .text-muted {
+  font-family: 'Glacial Indifference', sans-serif;
+}
+
+header, footer, .nav, .card-body, .container, .navbar-nav, #about, .modal-body, .modal-content, .navbar, h4, .navbar-brand {
+  background-color: var(--main-bg-color) !important;
+  color: var(--side-text-color) !important ;
+}
+
+/* General Rounded Corners for Text Boxes */
+.container{
+  border-radius: 1rem; /* Fixed rounding for corners */
+}
+
+/* Responsive Rounded Corners */
+@media (max-width: 767.98px) {
+  .container {
+    border-radius: 1rem; /* Smaller rounding on mobile */
+  }
+}
+
+.gradient-animation {
+    background: linear-gradient(270deg, #077d4c, #cedcc1, #f1ead1);
+    background-size: 600% 600%;
+
+    -webkit-animation: AnimationName 15s ease infinite;
+    -moz-animation: AnimationName 15s ease infinite;
+    animation: AnimationName 15s ease infinite;
+}
+
+@-webkit-keyframes AnimationName {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@-moz-keyframes AnimationName {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@keyframes AnimationName {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+/* Infinite Scrolling Background */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200%; /* Extended width for scrolling */
+  height: 100vh; /* Full viewport height */
+  z-index: -1; /* Behind all content */
+  
+  /* Corrected Isometric Cube Pattern */
+  background: radial-gradient(circle at top left,transparent 25%,#cedcc1 25.5%, #cedcc1 36%, transparent 37%, transparent 100%),radial-gradient(circle at bottom right,transparent 34%,#cedcc1 34.5%, #cedcc1 45.5%, transparent 46%, transparent 100%);
+  background-size: 3em 3em;
+  background-color: #f1ead1;
+  opacity: 1;
+
+  /* Infinite Scrolling Animation */
+  animation: scroll-bg 60s linear infinite;
+}
+
+/* Infinite Scrolling Keyframe */
+@keyframes scroll-bg {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.col-md-5 {
+  background-color: var(--side-bg-color);
+  color: var(--main-bg-color);
+}
+
+/* Reset and Global Styles */
+/* Reset and Global Styles */
+/* Reset and Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 2rem;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  color: #fff;
+}
+
+/* Tabs as Text Links */
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.tab-link {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  position: relative;
+  text-transform: uppercase;
+}
+
+.tab-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0%;
+  height: 4px;
+  background: #666;
+  transition: width 0.3s ease;
+}
+
+.tab-link:hover::after, .tab-link.active::after {
+  width: 100%; /* Show full underline when active or hovered */
+}
+
+.tab-link:hover, .tab-link.active{
+  color: #f0f0f0;
+}
+
+/* Timeline Layout */
+.tab-content {
+  display: none;
+  opacity: 0;
+  animation: fade-in 0.6s ease forwards;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.timeline {
+  position: relative;
+  margin-top: 2rem;
+  padding: 2rem 1rem;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 6px; /* Thicker Vertical Line */
+  height: 100%;
+  background: #666;
+  transform: translateX(-50%);
+}
+
+/* Timeline Items */
+.timeline-item {
+  position: relative;
+  width: 50%;
+  padding: 2rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.timeline-item.left {
+  left: 0;
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.timeline-item.right {
+  left: 50%;
+  justify-content: flex-start;
+  text-align: left;
+}
+
+/* Centered Icon on the Line */
+.timeline-icon {
+  width: 60px;
+  height: 60px;
+  background: #666;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  border: 6px solid #666; /* Integrates with the line */
+}
+
+.timeline-content h3 {
+  font-size: 1.5rem;
+  color: #077d4c;
+}
+
+.timeline-content p {
+  color: var(--main-bg-color);
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+/* Fade-In Animation */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design for Mobile */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .timeline {
+    padding: 1rem 0;
+  }
+
+  .timeline::before {
+    width: 4px; /* Thinner Line on Mobile */
+  }
+
+  /* Timeline Items Full Width on Mobile */
+  .timeline-item {
+    width: 100%; 
+    padding: 1rem;
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  /* Adjust Left & Right Items to Center */
+  .timeline-item.left, .timeline-item.right {
+    left: 0;
+    text-align: center;
+    padding: 1rem;
+  }
+
+  /* Centered Icon for Mobile */
+  .timeline-icon {
+    width: 60px;
+    height: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 4px solid #666; /* Matches Line Width on Mobile */
+  }
+
+  .timeline-content h3 {
+    font-size: 1.2rem;
+  }
+
+  .timeline-content p {
+    font-size: 0.9rem;
+  }
+}
+
+/* Tabs with Text Links - Reduced Spacing */
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;  /* Reduced Space Between Links */
+  margin-bottom: 1.5rem; /* Less Bottom Margin */
+  flex-wrap: wrap;  /* Allow Wrapping on Small Screens */
+}
+
+.tab-link {
+  font-size: 1.3rem;  /* Slightly Smaller Text */
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  position: relative;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 0.3rem 0.8rem;  /* Reduced Padding */
+}
+
+.tab-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0%;
+  height: 3px;  /* Thinner Underline */
+  background: #666;
+  transition: width 0.3s ease;
+}
+
+.tab-link:hover::after, .tab-link.active::after {
+  width: 100%;  /* Underline on Hover */
+}
+
+.tab-link:hover, .tab-link.active{
+  color: #f0f0f0;
+}
+
+/* Responsive Design for Small Screens */
+@media (max-width: 768px) {
+  .tabs {
+    justify-content: center;
+    gap: 0.5rem;  /* Further Reduced Spacing */
+    padding: 0 0.5rem;  /* Less Horizontal Padding */
+  }
+
+  .tab-link {
+    font-size: 1.1rem;  /* Smaller Text */
+    padding: 0.3rem 0.5rem;  /* Tighter Padding */
+  }
+}
+
+
+
+.timeline-content {
+    background-color: var(--side-bg-color);
+  }
+
+  .tab-link, .section-title {
+    color: var(--side-bg-color)
+  }
+
+#timeline-section {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+}
+
+/* Navbar Base Styles */
+.navbar {
+  width: 100%;
+  background: #222;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  border-bottom: 4px solid transparent; /* Default */
+  transition: all 0.3s ease;
+}
+
+/* Navbar Border for Desktop */
+@media (min-width: 769px) {
+  .navbar {
+    border-bottom: 4px solid #666; /* Desktop Border */
+    padding: 1rem 3rem;
+  }
+}
+
+/* Navbar Border for Mobile */
+@media (max-width: 768px) {
+  .navbar {
+    border-bottom: 2px solid #666; /* Mobile Border */
+    padding: 0.8rem 1.5rem;
+  }
+}
+
+/* Navbar Links Styles */
+.nav-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-item {
+  color: #fff;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  position: relative;
+}
+
+.nav-item::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0%;
+  height: 2px;
+  background: #f0f0f0;
+  transition: width 0.3s ease;
+}
+
+.nav-item:hover::after, .nav-item.active::after {
+  width: 100%;
+}
+
+.nav-item:hover, .nav-item.active {
+  color: #f0f0f0;
+}
+
+  /* Mobile Navbar Styles */
+.mobile-navbar {
+  display: none; /* Hidden by Default */
+  background: #222;
+  color: #fff;
+  padding: 1rem;
+}
+
+.mobile-navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mobile-brand {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #fff;
+  text-decoration: none;
+}
+
+.mobile-nav-links {
+  display: none; /* Hidden by Default */
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.mobile-nav-link {
+  font-size: 1.2rem;
+  color: #fff;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease;
+}
+
+.mobile-nav-link:hover {
+  background: #333;
+  border-radius: 5px;
+}
+
+.mobile-nav-toggle {
+  font-size: 1.2rem;
+  color: #fff;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .mobile-navbar {
+    display: block; /* Show Navbar on Mobile */
+  }
+
+  .mobile-nav-links {
+    display: flex; /* Reveal Navbar Links */
+  }
+}
+
+.navbar, #about, #contact {
+    padding-bottom: 0px;
+    padding-top: 0px;
+  }
+
+  .nav-link {
+  color: var(--side-text-color) !important;
+}
+
+.nav-link:hover, .nav-link:active  {
+  color: #f0f0f0 !important;
+}
+
+/* Initial State for Hidden Content */
+.timeline-content.hidden {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.6s ease-in-out;
+}
+
+/* When Content is in View */
+.timeline-content.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive Image Styles */
+.timeline-image {
+  width: 100%;
+  height: auto;
+  margin-top: 1rem;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+/* Text Styling */
+.timeline-content h3 {
+  font-size: 1.8rem;
+  color: #077d4c;
+  margin-bottom: 1rem;
+}
+
+.timeline-content p {
+  font-size: 1rem;
+  color: var(--main-bg-color);
+  line-height: 1.6;
+  margin-top: 1rem;
+}
+
+/* Responsive Design for Mobile */
+@media (max-width: 768px) {
+  .timeline-content h3 {
+    font-size: 1.5rem;
+  }
+
+  .timeline-content p {
+    font-size: 0.9rem;
+  }
+}
+
+/* Initial State for Hidden Content */
+.timeline-content.hidden {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.6s ease-in-out;
+}
+
+/* When Content is in View */
+.timeline-content.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive Design for Mobile */
+@media (max-width: 768px) {
+  .timeline-content h3 {
+    font-size: 1.5rem;
+  }
+
+  .timeline-content p {
+    font-size: 0.9rem;
+  }
+
+  /* Initial State for Hidden Content */
+.timeline-content.hidden {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.6s ease-in-out;
+}
+
+/* When Content is in View */
+.timeline-content.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+}
+
+
+/* Default Responsive Image Styles */
+.timeline-image {
+  width: 100%;
+  height: auto;
+  margin-top: 1rem;
+  border-radius: 8px;   /* Rounded Corners for Rectangular Images */
+  object-fit: cover;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Circular Image Option */
+.timeline-image.circle {
+  width: 200px;              /* Fixed width for circles */
+  height: 200px;             /* Ensure aspect ratio stays 1:1 */
+  border-radius: 50%;        /* Full Circle */
+  object-fit: cover;
+  margin: 1rem auto;         /* Center for consistency */
+  display: block;
+}
+
+/* Hover Effect for Images */
+
+/*
+.timeline-image:hover {
+  transform: scale(1.05);    
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+*/
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .timeline-content h3 {
+    font-size: 1.5rem;
+  }
+
+  .timeline-content p {
+    font-size: 0.9rem;
+  }
+
+  .timeline-image.circle {
+    width: 150px;           /* Smaller on Mobile */
+    height: 150px;
+  }
+}
+
+.timeline_subheadings {
+  color: #077d4c !important;
+  background-color: var(--side-bg-color) !important;
+}
+
+#timeline-section {
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+/* General Timeline Content Styling */
+.timeline-content {
+  padding: 1.5rem;
+  border-radius: 8px;
+  background: var(--side-bg-color);
+  text-align: left;
+}
+
+.timeline-content h3 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: #077d4c;
+}
+
+.timeline-content p {
+  font-size: 1rem;
+  color: var(--main-bg-color);
+  margin-bottom: 1.5rem;
+}
+
+/* Form Styles */
+.email-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.email-form label {
+  font-size: 1rem;
+  color: var(--main-bg-color);
+}
+
+.email-form input,
+.email-form textarea {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+  color: var(--main-bg-color);
+  background: #F0EADE;
+}
+
+.email-form textarea {
+  resize: none;
+  height: 120px;
+}
+
+.email-form button {
+  padding: 0.8rem 2rem;
+  font-size: 1rem;
+  color: var(--side-bg-color);
+  background: #077d4c;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.email-form button:hover {
+  background: var(--main-bg-color);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .timeline-content {
+    padding: 1rem;
+  }
+
+  .email-form input,
+  .email-form textarea {
+    font-size: 0.9rem;
+    padding: 0.7rem;
+  }
+
+  .email-form button {
+    font-size: 0.9rem;
+    padding: 0.7rem 1.5rem;
+  }
+}
+
+/* Social Media Section Styling */
+.social-media-links {
+  margin-top: 2rem;
+  text-align: left;
+}
+
+.social-media-links h4 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--main-bg-color);
+}
+
+.social-media-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.social-media-links ul li {
+  margin-bottom: 1rem;
+}
+
+.social-media-links ul li a, .text_link {
+  font-size: 1rem;
+  color: var(--main-bg-color);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.social-media-links ul li a:hover, .text_link:hover {
+  color: #077d4c; /* Change to your brand color */
+}
+
+.social-media-links ul li a i {
+  font-size: 1.2rem;
+  color: var(--main-bg-color);
+  transition: color 0.3s ease;
+}
+
+.social-media-links ul li a:hover i, .text_link:hover {
+  color: #077d4c; /* Icon hover color */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .social-media-links h4 {
+    font-size: 1.3rem;
+  }
+
+  .social-media-links ul li a, .text_link {
+    font-size: 0.9rem;
+  }
+
+  .social-media-links ul li a i, .text_link {
+    font-size: 1rem;
+  }
+}
+/* Anchor Tag Styling */
+
+
+.hover-darken img {
+  width: 100%;
+  height: auto;
+  transition: filter 0.3s ease/* Smooth transition */
+}
+
+/* Hover Effect */
+.hover-darken:hover img {
+  filter: brightness(70%); /* Darkens the image */
+}
+
+/* Responsive Design for Smaller Screens */
+@media (max-width: 768px) {
+  .hover-darken img {
+    transition: filter 0.2s ease /* Faster transition for mobile */
+  }
+
+  h3, h4 {
+  text-align: center;
+}
+}
+
+#learn_more_button {
+  text-transform: lowercase;
+  font-size: 1rem;
+  /* font-family: 'League Spartan', sans-serif !important;  */
+  /* font-family: 'CY GROTESK GRAND', sans-serif !important; */
+ /* font-family: 'Glacial Indifference', sans-serif;  */
+}
+
+small {
+  font-size: 1rem;
+}
+
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container" style="padding-bottom: 0px;">
+      <a class="navbar-brand" href="#"> <img src="assets/images/logo.svg" alt="SIM DAC Club Logo" width="45" height="30" class="d-inline-block align-top mr-2"> SIM DAC</a>
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="#learn_more">L<small id="learn_more_button">earn</small> M<small id="learn_more_button">ore</small></a></li> 
+      
+    </div>
+  </nav>
+
+  <header id="heroCarousel" class="carousel slide" data-ride="carousel" data-pause="hover" data-interval="4000">
+    
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#heroCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#heroCarousel" data-slide-to="1"></li>
+      <li data-target="#heroCarousel" data-slide-to="2"></li>
+    </ol>
+  
+    <!-- Carousel Items -->
+    <div class="carousel-inner">
+      <!-- Slide 1 -->
+      <div class="carousel-item active">
+        <img src="assets/images/cover1.jpeg" class="d-block w-100" alt="Cover photo 1">
+        <div class="carousel-caption d-block"> <!-- Changed from d-none d-md-block to d-block -->
+          <h2>Welcome to SIM's Data Analytics Club</h2>
+          <p>A supportive community where students share knowledge, build projects, and prepare for a future in tech.</p>
+          <!-- <a href="#about" class="btn btn-primary btn-lg">Learn More</a> -->
+        </div>
+      </div>
+  
+      <!-- Slide 2 -->
+      <div class="carousel-item">
+        <img src="assets/images/cover2.jpeg" class="d-block w-100" alt="Cover photo 2">
+        <div class="carousel-caption d-block"> <!-- Changed from d-none d-md-block to d-block -->
+          <h2>Join Our Workshops</h2>
+          <p>Enhance your skills with our hands-on coding workshops and peer-to-peer mentorship lessons.</p>
+          <!-- <a href="#events" class="btn btn-primary btn-lg">Explore Events</a> -->
+        </div>
+      </div>
+  
+      <!-- Slide 3 -->
+      <div class="carousel-item">
+        <img src="assets/images/cover3.jpeg" class="d-block w-100" alt="Cover photo 3">
+        <div class="carousel-caption d-block"> <!-- Changed from d-none d-md-block to d-block -->
+          <h2>Collaborate and Innovate</h2>
+          <p>Work on exciting projects and collaborate with fellow enthusiasts to create impactful solutions.</p>
+          <!-- <a href="#team" class="btn btn-primary btn-lg">Meet the Team</a> -->
+        </div>
+      </div>
+  
+    <!-- Controls -->
+    <a class="carousel-control-prev" href="#heroCarousel" role="button" data-slide="prev" aria-label="Previous Slide">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#heroCarousel" role="button" data-slide="next" aria-label="Next Slide">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </header>
+
+
+  <!-- About Section -->
+  <section id="about">
+    <div class="container text-center">
+      <h2>About Us</h2>
+      <p class="lead">We are a student-led club at the Singapore Institute of Management (SIM), established in 2014. Our club caters to students who are passionate about data analytics and data science. We aim to provide a platform from beginner to advanced learners to explore, learn, and excel in these fields. We do so by focusing on teaching data analytics and data science concepts.</p>
+    </div>
+  </section>
+
+
+<!-- Timeline Section -->
+ <div id="learn_more"></div>
+<section id="timeline-section" class="container">
+  <h2 class="section-title">Learn More</h2>
+  
+  <!-- Text-Based Tabs -->
+  <div class="tabs">
+    <span class="tab-link active" data-tab="tab-1">About</span>
+    <span class="tab-link" data-tab="tab-2">DACademy</span>
+    <span class="tab-link" data-tab="tab-3">DSAcademy</span>
+    <span class="tab-link" data-tab="tab-4">Collaborations</span>
+    <span class="tab-link" data-tab="tab-5">Team</span>
+    <span class="tab-link" data-tab="tab-6">Contact</span>
+  </div>
+
+  <!-- About Tab -->
+  <div id="tab-1" class="tab-content active">
+    <div class="timeline">
+
+      <div class="timeline-item left">
+        <div class="timeline-content hidden">
+          <h3>Who Are We?</h3>
+          <img src="assets/images/about1.jpeg" alt="Club activities photo" class="timeline-image">
+          <p>We are students from SIM Data Analytics Club.<br><br>We share knowledge learned from our seniors and other areas we have explored on our own. We conduct peer-to-peer workshops and support like-minded students in their learning of data analytics.<br><br>Many EXCO and subcommittee members also double up as interns at notable companies such as Grab, foodpanda, the Ministry of Manpower, EY, NCS, Shopback, and SAP etc.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item right">
+        <div class="timeline-content hidden">
+          <h3>What Do We Do?</h3>
+          <img src="assets/images/about2.jpeg" alt="Club activities photo" class="timeline-image">
+          <p>At DAC, we provide 2 structured programs: DACademy and DSAcademy — nurturing data talent through immersive learning experiences.<br><br>The Data Analytics Academy (DACademy) and the Data Science Academy (DSAcademy). Both academies operate concurrently, allowing our carefully selected subcommittee members—100 out of 200 applicants—to engage deeply in one chosen program.<br><br>Our academy sessions are held twice a week for three hours each over the course of three months. Led by experienced EXCOs, these sessions ensure our members receive high-quality education, equipping them to tackle real-world challenges in the data field.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item left">
+        <div class="timeline-content hidden">
+          <h3>Data Analytics Academy (DACademy)</h3>
+          <img src="assets/images/about3.jpg" alt="Club activities photo" class="timeline-image">
+          <p>Foundation Building: Prepares members with essential analytics skills.<br><br>Core Curriculum: Covers Python, SQL, Tableau, and more.<br><br>Structured Learning Path: Progresses from basics to NLP, ML techniques etc.<br><br>Workshop Facilitation: Members enhance learning by conducting public workshops.<br><br>Skill Application: Members apply knowledge in internal & external projects.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item right">
+        <div class="timeline-content hidden">
+          <h3>Data Science Academy (DSAcademy)</h3>
+          <img src="assets/images/about4.jpeg" alt="Club activities photo" class="timeline-image">
+          <p>Skill Enhancement: Deepens and advances programming competencies.<br><br>Advanced Curriculum: Focus on deep learning, advanced SQL, and Gen AI.<br><br>Project-Based Learning: Tackles real-world challenges and case studies.<br><br>Workshop Facilitation: Members enhance learning by conducting public workshops.<br><br>Skill Application: Members apply knowledge in internal & external projects.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item left">
+        <div class="timeline-content hidden">
+          <h3>Check Out <a href="https://github.com/DACSIM">DACSIM's GitHub!</a></h3>
+          <img src="assets/images/about5.png" alt="Club activities photo" class="timeline-image">
+          <p>Explore our projects and resources on our GitHub repository, where you can view the detailed curriculum materials used in DACademy and DSAcademy. This is where subcommittee members download the lesson content that shapes their learning experience.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item right">
+        <div class="timeline-content hidden">
+          <h3>Our Timeline</h3>
+          <p>August to September - Recruitment: Conduct interviews to onboard new subcommittee members for DAC and DSA tracks.<br><br>October to December - Curriculum: Teach the full curriculum to build subcommittee members' skills.<br><br>December - Internal Projects: Members work in groups to solve prompts using learned skills and present their solutions for evaluation.<br><br>January to March - External Projects: Collaborate with external companies, allowing top-performing members to work on real-world projects.<br><br>March - Annual General Meeting: Conclude the term, introduce the next Executive Committee, and pass on leadership responsibilities.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- DACademy Tab -->
+  <div id="tab-2" class="tab-content">
+    <div class="timeline">
+
+
+      <div class="timeline-item left">
+        <div class="timeline-content">
+          <h3>DACademy Curriculum Highlights - EDA + Tableau</h3>
+          <a href="https://github.com/DACSIM/DAC-Curriculum/tree/main/DAC-003_Intro_to_Tableau" target="_blank" class="hover-darken"><img src="assets/images/dac1.png" alt="Curriculum content photo" class="timeline-image"></a>
+          <p>This session focuses on integrating Exploratory Data Analysis (EDA) techniques with Tableau software to create advanced data visualizations. Participants will learn how to analyze datasets to uncover patterns and insights using Python, followed by leveraging Tableau's visualization capabilities to present findings effectively.<br><br>The tutorial emphasizes the synergy between Python's analytical power and Tableau's user-friendly visualization tools, enabling participants to craft compelling data narratives.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item right">
+        <div class="timeline-content">
+          <h3>Intro To Machine Learning</h3>
+          <a href="https://github.com/DACSIM/DAC-Curriculum/tree/main/DAC-006_Machine_Learning" target="_blank" class="hover-darken"><img src="assets/images/dac2.jpg" alt="Curriculum content photo" class="timeline-image"></a>
+          <p>This introductory course offers a comprehensive overview of machine learning principles and techniques. Spanning multiple lectures, it covers both theoretical foundations and practical applications, guiding participants from basic concepts to more advanced machine learning methodologies.<br><br>The curriculum is designed to equip learners with the skills necessary to implement machine learning models, understand their underlying algorithms, and apply them to real-world data scenarios.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item left">
+        <div class="timeline-content">
+          <h3>Web Scraping</h3>
+          <a href="https://github.com/DACSIM/DAC-Curriculum/tree/main/DAC-007_Web_Scraping" target="_blank" class="hover-darken"><img src="assets/images/dac3.png" alt="Curriculum content photo" class="timeline-image"></a>
+          <p>This crash course delves into web scraping techniques using Python. Participants will learn how to extract data from websites efficiently, understanding the legal and ethical considerations involved.<br><br>The session covers various tools and libraries essential for web scraping, enabling learners to gather and process web data for analysis and application in data-driven projects. </p>
+        </div>
+      </div>
+
+      <div class="timeline-item right">
+        <div class="timeline-content">
+          <h3>Intro to NLP</h3>
+          <a href="https://github.com/DACSIM/DAC-Curriculum/tree/main/DAC-008_Intro_To_NLP" target="_blank" class="hover-darken"><img src="assets/images/dac4.png" alt="Curriculum content photo" class="timeline-image"></a>
+          <p>This course provides an introduction to Natural Language Processing (NLP), exploring how machines can understand and interpret human language. Through a series of lectures, participants will learn about fundamental NLP techniques, including text preprocessing, sentiment analysis, and language modeling.<br><br>The curriculum aims to equip learners with the skills to apply NLP methods to various textual data, enhancing their ability to develop applications that interact seamlessly with human language. </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- DSAcademy Tab -->
+  <div id="tab-3" class="tab-content">
+    <div class="timeline">
+
+      <div class="timeline-item left">
+        <div class="timeline-content">
+          <h3>DSAcademy Curriculum Highlights - Intro To Generative AI</h3>
+          <a href="https://github.com/DACSIM/DSA-Curriculum/tree/main/DSA-006_Intro_to_GAI" target="_blank" class="hover-darken"><img src="assets/images/dsa1.jpeg" alt="Curriculum content photo" class="timeline-image"></a>
+          <p>This module provides an in-depth understanding of Generative Artificial Intelligence (AI), focusing on the theoretical foundations and practical coding applications of generative models. It covers various generative models, their architectures, and training methodologies.<br><br>The curriculum emphasizes hands-on experience, enabling learners to implement generative models to create new data instances similar to a given dataset. Key topics include Generative Adversarial Networks (GANs), Variational Autoencoders (VAEs), and their applications in data augmentation, image synthesis, and more.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item right">
+        <div class="timeline-content">
+          <h3>Emotion Recognition Using Neural Networks</h3>
+          <a href="https://github.com/DACSIM/DSA-Curriculum/tree/main/DSA-011_Deep_Learning_%5B3%5D" target="_blank" class="hover-darken"><img src="assets/images/dsa2.jpeg" alt="Curriculum content photo" class="timeline-image"></a>
+          <p>This module covers training a Convolutional Neural Network (CNN) to recognize emotions from human facial expressions. The CNN is trained on labeled face datasets, using preprocessing steps such as resizing, normalization, and grayscale conversion for optimal performance.<br><br>After training, the model is integrated into a real-time application that uses a webcam to capture live images, detect faces, and predict emotions. Key challenges like varying lighting, occlusions, and facial angles are addressed through techniques like data augmentation and fine-tuning. By the end, learners will have developed a fully functional emotion recognition system combining machine learning and computer vision.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item left">
+        <div class="timeline-content">
+          <h3>Reinforcement Learning: Training an RL Agent to Play Flappy Bird</h3>
+          <a href="https://github.com/DACSIM/DSA-Curriculum/tree/main/DSA-013_Deep_Learning%20_%5B5%5D" target="_blank" class="hover-darken"><img src="assets/images/dsa3.png" alt="Curriculum content photo" class="timeline-image"></a>
+          <p>In this practical session, learners are introduced to Reinforcement Learning (RL) concepts by training an RL agent to play the game Flappy Bird. The lesson covers the fundamentals of RL, including the agent-environment interaction, reward systems, and policy optimization.<br><br>Participants will implement algorithms such as Q-learning or Deep Q-Networks (DQNs) to enable the agent to learn optimal actions through trial and error, enhancing its performance in the game over time.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item right">
+        <div class="timeline-content">
+          <h3>Data Engineering Pipeline: Analyzing and Predicting Brain Tumors</h3>
+          <a href="https://github.com/DACSIM/DSA-Curriculum/tree/main/DSA-016_Advanced_SQL_%5B4%5D" target="_blank" class="hover-darken"><img src="assets/images/dsa4.png" alt="Curriculum content photo" class="timeline-image"></a>
+          <p>This comprehensive module guides learners through building a data engineering pipeline that integrates SQL, deep learning, and generative AI techniques to analyze and predict brain tumors from a dataset. The pipeline involves data ingestion, cleaning, and transformation using SQL for efficient querying and management.<br><br>Subsequently, deep learning models are employed for predictive analysis, identifying patterns indicative of brain tumors. Generative AI is utilized for data augmentation, enhancing model robustness. The lesson emphasizes the end-to-end workflow, from raw data to actionable insights, highlighting best practices in data engineering and machine learning integration.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Collaborations Tab -->
+  <div id="tab-4" class="tab-content">
+    <div class="timeline">
+
+      <div class="timeline-item left">
+        <div class="timeline-content hidden">
+          <h3>Microsoft Hackathon Collab</h3>
+          <img src="assets/images/collab6.jpeg" alt="Collaboration Image" class="timeline-image">
+          <p>SIM Data Analytics Club proudly partnered with Microsoft to host Singapore’s first-ever Power Platform Hackathon—Microsoft’s inaugural school-led collaboration on Power Platform.<br><br>Over two dynamic days, participants first honed their skills in hands-on sessions, quickly building a website, dashboard, and bot using Power Apps. The event then advanced to real-world problem solving, where teams leveraged tools like Power Apps, Power BI, and Power Automate to transform innovative ideas into functional prototypes.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item right">
+        <div class="timeline-content hidden">
+          <h3>AWS Workshop Collab</h3>
+          <img src="assets/images/collab5.jpeg" alt="Collaboration Image" class="timeline-image">
+          <p>Subcomittee members gained expertise in understanding and bulding data pipelines, getting hands-on experience with AWS services such as Quicksight and Bedrock, and were able to network with AWS professionals.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item left">
+        <div class="timeline-content hidden">
+          <h3>UOB Project Collab</h3>
+          <img src="assets/images/collab1.jpg" alt="Collaboration Image" class="timeline-image">
+          <p>Scope of Project: Utilizing NLP, topic modeling, and data visualization, this project analyzes the financial loan market and presents insights via an interactive dashboard.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item right">
+        <div class="timeline-content hidden">
+          <h3>FDM Project Collab</h3>
+          <img src="assets/images/collab2.png" alt="Collaboration Image" class="timeline-image">
+          <p>Scope of Project: Leveraging Selenium and Sentiment Analysis, this project analyzes over 1K job listings, delivering insights to enhance FDM’s graduate program listings.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item left">
+        <div class="timeline-content hidden">
+          <h3>ST Engineering Project Collab</h3>
+          <img src="assets/images/collab3.png" alt="Collaboration Image" class="timeline-image">
+          <p>Scope of Project: Utilizing Web Scraping and NLP, this project analyzes Chinese media sites, delivering insights that inform strategic decisions for market positioning.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item right">
+        <div class="timeline-content hidden">
+          <h3>Intercontinental Exchange Project Collab</h3>
+          <img src="assets/images/collab4.jpg" alt="Collaboration Image" class="timeline-image">
+         <p>Scope of Project: Implemented unsupervised learning models to cluster emails for detecting Data Loss Prevention (DLP) violations, enhanced detection through data analysis of URLs, headers, and attachments using tools like the IP Quality Score API, and streamlined review processes with feedback-driven optimization.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item left">
+        <div class="timeline-content hidden">
+          <h3>External Collaboration Timeline</h3>
+          <p>October to November - Collaboration Pitch and Defining Project Terms:<br>Showcase vision and explore collaboration opportunities while establishing project goals, expectations, and scope collaboratively.<br><br>December - Project Administration Coordination:<br> Finalize administrative tasks such as gathering information, datasets, NDAs, and agreements to ensure a smooth project kickoff.<br><br>January to March - Project Initiation & Development:<br>Kickoff meeting in the second week of January introduces teams and aligns on execution plans. Regular updates and checkpoints will be scheduled throughout the project duration.<br><br>March - Project Completion:<br>Deliver final results and insights during a wrap-up meeting. Present outcomes, assess how objectives were met, and provide actionable recommendations.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Team Tab -->
+  <div id="tab-5" class="tab-content">
+    <div class="timeline">
+
+      <div class="timeline-item left">
+
+        <div class="timeline-content">
+          <h3 style="text-align: center;">Our 2024/25 EXCO Team</h3>
+          <a href="https://www.linkedin.com/in/junyeow/" target="_blank" class="hover-darken"><img src="assets/images/president.jpeg" alt="EXCO selfie" class="timeline-image circle"></a>
+          <h4 class="timeline_subheadings" style="text-align: center;">Jun Yeow Yeo</h4>
+          <p style="text-align: center;">President</p>
+        </div>
+
+      </div>
+
+      <div class="timeline-item right">
+        <div class="timeline-content">
+          <h3 style="text-align: center;">2024/25 EXCO</h3>
+          <a href="https://www.linkedin.com/in/cherylongc/" target="_blank" class="hover-darken"><img src="assets/images/vice_president.jpg" alt="EXCO selfie" class="timeline-image circle"></a>
+          <h4 class="timeline_subheadings" style="text-align: center;">Cheryl Ong</h4>
+          <p style="text-align: center;">Vice President</p>
+        </div>
+      </div>
+
+      <div class="timeline-item left">
+        <div class="timeline-content">
+          <h3 style="text-align: center;">2024/25 EXCO</h3>
+          <a href="https://www.linkedin.com/in/genevieve-chin-wan-qi-992b54295/" target="_blank" class="hover-darken"><img src="assets/images/events_director.jpg" alt="EXCO selfie" class="timeline-image circle"></a>
+          <h4 class="timeline_subheadings" style="text-align: center;">Genevieve Chin Wan Qi</h4>
+          <p style="text-align: center;">Events Director</p>
+        </div>
+      </div>
+
+      <div class="timeline-item right">
+        <div class="timeline-content">
+          <h3 style="text-align: center;">2024/25 EXCO</h3>
+          <a href="https://www.linkedin.com/in/kaavya-m/" target="_blank" class="hover-darken"><img src="assets/images/marketing_director.jpg" alt="EXCO selfie" class="timeline-image circle"></a>
+          <h4 class="timeline_subheadings" style="text-align: center;">Kaavya Murugan</h4>
+          <p style="text-align: center;">Marketing Director</p>
+        </div>
+      </div>
+
+      <div class="timeline-item left">
+        <div class="timeline-content">
+          <h3 style="text-align: center;">2024/25 EXCO</h3>
+          <a href="https://www.linkedin.com/in/luqm4n/" target="_blank" class="hover-darken"><img src="assets/images/partnerships_director.jpeg" alt="EXCO selfie" class="timeline-image circle"></a>
+          <h4 class="timeline_subheadings" style="text-align: center;">Luqman Nurhakim</h4>
+          <p style="text-align: center;">Partnerships Director</p>
+        </div>
+      </div>
+
+      <div class="timeline-item right">
+        <div class="timeline-content">
+          <h3 style="text-align: center;">2024/25 EXCO</h3>
+          <a href="https://www.linkedin.com/in/jarylliewjw/" target="_blank" class="hover-darken"><img src="assets/images/operations_director.jpeg" alt="EXCO selfie" class="timeline-image circle"></a>
+          <h4 class="timeline_subheadings" style="text-align: center;">Jaryl Liew</h4>
+          <p style="text-align: center;">Operations Director</p>
+        </div>
+      </div>
+
+      <div class="timeline-item left">
+        <div class="timeline-content">
+          <h3 style="text-align: center;">2024/25 EXCO</h3>
+          <a href="https://www.linkedin.com/in/abhishek-bhadkamkar-45ba59294/" target="_blank" class="hover-darken"><img src="assets/images/finance_director.jpeg" alt="EXCO selfie" class="timeline-image circle"></a>
+          <h4 class="timeline_subheadings" style="text-align: center;">Abhishek Bhadkamkar</h4>
+          <p style="text-align: center;">Finance Director</p>
+        </div>
+      </div>
+
+    </div>
+  </div> 
+
+  <!-- Contact Section -->
+  <div id="tab-6" class="tab-content">
+    <div class="timeline">
+
+
+      <div class="timeline-item left">
+        <div class="timeline-content">
+          <h3>Contact Us</h3>
+          <p>If you have any questions or want to get in touch, please fill out the form below:</p>
+        
+          <form action="https://formspree.io/f/mrbgvnya" method="POST" class="email-form">
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name" required>
+        
+            <label for="email">Your Email:</label>
+            <input type="email" id="email" name="_replyto" placeholder="Enter your email" required>
+
+            <label for="subject">Your Subject:</label>
+            <input type="text" id="subject" name="subject" placeholder="Enter your subject" required>
+        
+            <label for="message">Your Message:</label>
+            <textarea id="message" name="message" placeholder="Type your message here" required></textarea>
+        
+            <button type="submit">Send Message</button>
+          </form>
+        </div>
+        </div>
+
+        <div class="timeline-item right">
+          <div class="timeline-content">
+  <!-- Social Media Section -->
+  <div class="social-media-links">
+    <h3>Follow For Updates</h3>
+    <ul>
+      <li><a href="https://www.instagram.com/sim_dac/" target="_blank"><i class="bi bi-instagram"></i> Instagram</a></li>
+      <li><a href="https://www.linkedin.com/company/simdac/" target="_blank"><i class="bi bi-linkedin"></i> LinkedIn</a></li>
+      <li><a href="https://t.me/+rM4NMWR4yDhjMjU1" target="_blank"><i class="bi bi-telegram"></i> Telegram</a></li>
+      <li><a href="https://github.com/DACSIM" target="_blank"><i class="bi bi-github"></i> GitHub</a></li>
+      <li><a href="https://tiktok.com/@sim_dac?lang=en" target="_blank"><i class="bi bi-tiktok"></i> TikTok</a></li>
+      <li class="text_link"><i class="bi bi-envelope"></i>dac@mymail.sim.edu.sg</li>
+    </ul>
+  </div>
+          </div>
+        </div>
+
+    </div>
+  </div>
+
+
+</section>
+
+  <!-- Footer (Now acts as contact section) -->
+  <footer class="text-center" id="contact">
+    <div class="container">
+      <div class="mt-2">
+        <!-- Icons now larger (2rem) -->
+        <a href="https://www.instagram.com/sim_dac/"><i class="bi bi-instagram"></i></a>
+        <a href="https://www.linkedin.com/company/simdac/"><i class="bi bi-linkedin"></i></a>
+        <a href="https://t.me/+rM4NMWR4yDhjMjU1"><i class="bi bi-telegram"></i></a>
+        <a href="https://github.com/DACSIM"><i class="bi bi-github"></i></a>
+        <a href="https://tiktok.com/@sim_dac?lang=en"><i class="bi bi-tiktok"></i></a>
+      </div>
+      <h4 class="mt-4">Contact Us</h4>
+      <p class="text-muted">Feel free to reach out to us on our social media or our official email address: <h5 class="mt-4">dac@mymail.sim.edu.sg</h5></p>
+    </div>
+  </footer>
+
+  <!-- JS dependencies -->
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/popper.min.js"></script>
+  <script src="assets/js/bootstrap.min.js"></script>
+  <script>
+    // Handle navigation from the modal links
+
+    document.querySelectorAll(".tab-link").forEach((tab) => {
+  tab.addEventListener("click", () => {
+    const target = tab.dataset.tab;
+
+    // Remove active classes
+    document.querySelectorAll(".tab-link").forEach((t) => t.classList.remove("active"));
+    document.querySelectorAll(".tab-content").forEach((content) =>
+      content.classList.remove("active")
+    );
+
+    // Activate the selected tab
+    tab.classList.add("active");
+    document.getElementById(target).classList.add("active");
+  });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const tabs = document.querySelectorAll(".tab-link");
+  const tabContents = document.querySelectorAll(".tab-content");
+  const timelineBlocks = document.querySelectorAll(".timeline-content");
+
+  const observerOptions = {
+    root: null,           // Viewport as root
+    threshold: 0.10,       // Trigger when 20% of the element is visible
+  };
+
+  // Intersection Observer Callback
+  const handleIntersection = (entries, observer) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("show");  // Trigger fade-in animation
+      }
+    });
+  };
+
+  const observer = new IntersectionObserver(handleIntersection, observerOptions);
+
+  // Attach Observer to Each Timeline Content
+  const attachObservers = () => {
+    timelineBlocks.forEach((block) => {
+      block.classList.remove("show", "hidden");  // Reset animation state
+      block.classList.add("hidden");
+      observer.observe(block);  // Attach observer again
+    });
+  };
+
+  // Function to Activate a Tab
+  const activateTabContent = (targetId) => {
+    tabContents.forEach((content) => {
+      content.classList.remove("active", "show", "hidden");
+    });
+
+    const activeContent = document.getElementById(targetId);
+    activeContent.classList.add("active");
+
+    // Reset and Reattach Animation for Current Tab
+    const tabTimelineBlocks = activeContent.querySelectorAll(".timeline-content");
+    tabTimelineBlocks.forEach((block) => {
+      block.classList.remove("show");
+      block.classList.add("hidden");
+      observer.observe(block);  // Attach observer
+    });
+  };
+
+  // Handle Tab Clicks
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      const target = tab.dataset.tab;
+
+      // Remove active class from all tabs
+      tabs.forEach((t) => t.classList.remove("active"));
+      tab.classList.add("active");
+
+      activateTabContent(target);  // Activate selected tab
+    });
+  });
+
+  // Reset Animation When Scrolling Back to Top
+  window.addEventListener("scroll", () => {
+    if (window.scrollY === 0) {
+      attachObservers();  // Reset animations when at the top of the page
+    }
+  });
+
+  // Initial Load
+  const initialTab = tabs[0].dataset.tab;
+  activateTabContent(initialTab);
+});
+</script>
+</body>
+</html>
