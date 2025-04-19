@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- This is a test comment -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -148,7 +147,7 @@
     }
 
     /* Timeline Section (Double-Sided) */
-    @media (min-width: 992px) {
+    @media (min-width: 1200px) {
       #timeline h2 {
         margin-bottom: 4rem; 
       }
@@ -220,7 +219,7 @@
     }
 
     /* Desktop layout: alternate sides */
-    @media (min-width: 768px) {
+    @media (min-width: 1200px) {
       .timeline-item:nth-child(odd) .timeline-content {
         text-align: right;
       }
@@ -230,7 +229,7 @@
     }
 
     /* Mobile layout: stack centered */
-    @media (max-width: 767.98px) {
+    @media (max-width: 1199.98px) {
       .timeline-item {
         margin-bottom: 2rem;
       }
@@ -329,7 +328,7 @@
   }
 
   /* Responsive height adjustment for smaller screens */
-  @media (max-width: 767.98px) {
+  @media (max-width: 1199.98px) {
     #heroCarousel,
     #heroCarousel .carousel-item {
       height: 60vh; /* Reduced height for better visibility on mobile */
@@ -503,7 +502,7 @@ header, footer, .nav, .card-body, .container, .navbar-nav, #about, .modal-body, 
 }
 
 /* Responsive Rounded Corners */
-@media (max-width: 767.98px) {
+@media (max-width: 1199.98px) {
   .container {
     border-radius: 1rem; /* Smaller rounding on mobile */
   }
@@ -719,7 +718,7 @@ body::before {
 }
 
 /* Responsive Design for Mobile */
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
   .container {
     padding: 1rem;
   }
@@ -806,7 +805,7 @@ body::before {
 }
 
 /* Responsive Design for Small Screens */
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
   .tabs {
     justify-content: center;
     gap: 0.5rem;  /* Further Reduced Spacing */
@@ -851,7 +850,7 @@ body::before {
 }
 
 /* Navbar Border for Desktop */
-@media (min-width: 769px) {
+@media (min-width: 1201px) {
   .navbar {
     border-bottom: 4px solid #666; /* Desktop Border */
     padding: 1rem 3rem;
@@ -859,7 +858,7 @@ body::before {
 }
 
 /* Navbar Border for Mobile */
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
   .navbar {
     border-bottom: 2px solid #666; /* Mobile Border */
     padding: 0.8rem 1.5rem;
@@ -947,7 +946,7 @@ body::before {
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
   .mobile-navbar {
     display: block; /* Show Navbar on Mobile */
   }
@@ -1007,7 +1006,7 @@ body::before {
 }
 
 /* Responsive Design for Mobile */
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
   .timeline-content h3 {
     font-size: 1.5rem;
   }
@@ -1031,7 +1030,7 @@ body::before {
 }
 
 /* Responsive Design for Mobile */
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
   .timeline-content h3 {
     font-size: 1.5rem;
   }
@@ -1086,7 +1085,7 @@ body::before {
 */
 
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
   .timeline-content h3 {
     font-size: 1.5rem;
   }
@@ -1175,7 +1174,7 @@ body::before {
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
   .timeline-content {
     padding: 1rem;
   }
@@ -1238,7 +1237,7 @@ body::before {
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
   .social-media-links h4 {
     font-size: 1.3rem;
   }
@@ -1266,7 +1265,7 @@ body::before {
 }
 
 /* Responsive Design for Smaller Screens */
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
   .hover-darken img {
     transition: filter 0.2s ease /* Faster transition for mobile */
   }
@@ -1288,12 +1287,65 @@ small {
   font-size: 1rem;
 }
 
+
+/* style the dropdown background and text */
+#teamYearSelector {
+  background-color: #077d4c;
+  color: var(--side-bg-color);
+  /* color: #077d4c; */
+  border-color: var(--side-bg-color);
+  text-align: center !important;
+}
+
+/* ensure the opened options match */
+#teamYearSelector option {
+  background-color: #077d4c;
+  color: var(--side-bg-color);
+  /* color: #077d4c; */
+  text-align: center !important;
+}
+
+/* make the select size itself to its text but never overflow */
+#teamYearSelector {
+  display: inline-block;   /* shrink‐to‐fit */
+  max-width: 100%;         /* but never wider than its container */
+  font-size: 1.8rem;       /* match your h3 sizing */
+  line-height: 1.2;        /* keep the text vertically centered */
+  padding: 0.5rem 1rem;    /* give it some breathing room */
+  height: auto;            /* allow it to grow with the font */
+}
+
+/* ensure dropdown options match */
+#teamYearSelector option {
+  font-size: 1.8rem;
+}
+
+/* Base font-size (mobile) */
+html {
+  font-size: 100%; /* 16px */
+}
+
+/* Tablet screens (portrait & landscape) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  html {
+    font-size: 112.5%; /* 18px */
+  }
+}
+
+/* Small laptops / desktops */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  html {
+    font-size: 125%; /* 20px */
+  }
+}
+
+
   </style>
 </head>
 <body>
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-    <div class="container" style="padding-bottom: 0px;">
+    <div class="container" style="padding-bottom: 0px; padding-top: 0.6rem">
       <a class="navbar-brand" href="#"> <img src="assets/images/logo.svg" alt="SIM DAC Club Logo" width="45" height="30" class="d-inline-block align-top mr-2"> SIM DAC</a>
         <ul class="navbar-nav">
           <li class="nav-item"><a class="nav-link" href="#learn_more">L<small id="learn_more_button">earn</small> M<small id="learn_more_button">ore</small></a></li> 
@@ -1358,7 +1410,7 @@ small {
   <section id="about">
     <div class="container text-center">
       <h2>About Us</h2>
-      <p class="lead">We are a student-led club at the Singapore Institute of Management (SIM), established in 2014. Our club caters to students who are passionate about data analytics and data science. We aim to provide a platform from beginner to advanced learners to explore, learn, and excel in these fields. We do so by focusing on teaching data analytics and data science concepts.</p>
+      <p class="lead">We are a student-led club at the Singapore Institute of Management (SIM), established in 2014. Our club caters to students who are passionate about data analytics and data science. We aim to provide a platform for both beginner and advanced learners to explore, learn, and excel in these fields. We do so by focusing on teaching data analytics and data science concepts.</p>
     </div>
   </section>
 
@@ -1557,6 +1609,22 @@ small {
 
       <div class="timeline-item right">
         <div class="timeline-content hidden">
+          <h3>ThoughtFull Project Collab</h3>
+          <img src="assets/images/tf_collab_2.png" alt="Collaboration Image" class="timeline-image">
+          <p>Scope of project: The collaboration focused on three strands—first, a pilot Slack bot that periodically checked on users’ wellbeing, offered brief mindfulness prompts, and captured anonymised engagement data; <br><br>second, an analytics dashboard to determine whether users’ emotional states improved over successive chat sessions; and third, the creation of a clinically‑oriented, labelled dataset of therapy conversations to support future analysis and product development. ​​</p>
+        </div>
+      </div>
+
+      <div class="timeline-item left">
+        <div class="timeline-content hidden">
+          <h3>BGroup Project Collab</h3>
+          <img src="assets/images/bgroup_collab.png" alt="Collaboration Image" class="timeline-image">
+          <p>Scope of Project: The team developed a high‑frequency Bitcoin trading system powered by real‑time data and advanced ML models—neural networks, decision trees, and genetic algorithms—to forecast short‑term price moves. <br><br>They engineered features such as price trends, order flow, and volatility, then validated the strategy with a custom back‑tester to identify rapid, data‑driven profit opportunities in the crypto market.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item right">
+        <div class="timeline-content hidden">
           <h3>Intercontinental Exchange Project Collab</h3>
           <img src="assets/images/collab4.jpg" alt="Collaboration Image" class="timeline-image">
          <p>Scope of Project: Implemented unsupervised learning models to cluster emails for detecting Data Loss Prevention (DLP) violations, enhanced detection through data analysis of URLs, headers, and attachments using tools like the IP Quality Score API, and streamlined review processes with feedback-driven optimization.</p>
@@ -1574,6 +1642,7 @@ small {
   </div>
 
   <!-- Team Tab -->
+   <!-- 
   <div id="tab-5" class="tab-content">
     <div class="timeline">
 
@@ -1644,6 +1713,14 @@ small {
 
     </div>
   </div> 
+-->
+
+<!-- Team Tab -->
+<div id="tab-5" class="tab-content">
+  <!-- This container will be dynamically populated -->
+  <div class="timeline" id="teamContainer"></div>
+</div>
+
 
   <!-- Contact Section -->
   <div id="tab-6" class="tab-content">
@@ -1717,96 +1794,174 @@ small {
   <script src="assets/js/popper.min.js"></script>
   <script src="assets/js/bootstrap.min.js"></script>
   <script>
-    // Handle navigation from the modal links
+    // Tab navigation
+    document.querySelectorAll(".tab-link").forEach(tab => {
+      tab.addEventListener("click", () => {
+        document.querySelectorAll(".tab-link").forEach(t => t.classList.remove("active"));
+        document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
+        tab.classList.add("active");
+        document.getElementById(tab.dataset.tab).classList.add("active");
+      });
+    });
+  
+    document.addEventListener("DOMContentLoaded", () => {
+      // --- Fade‑In Observer for all timeline-content blocks ---
+      const tabs = document.querySelectorAll(".tab-link");
+      const tabContents = document.querySelectorAll(".tab-content");
+      const initialBlocks = document.querySelectorAll(".timeline-content");
+      const observerOptions = { root: null, threshold: 0.10 };
+      const handleIntersection = entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) e.target.classList.add("show");
+        });
+      };
+      const observer = new IntersectionObserver(handleIntersection, observerOptions);
+  
+      initialBlocks.forEach(block => {
+        block.classList.add("hidden");
+        observer.observe(block);
+      });
+  
+      // Activate a tab and re‑observe its content
+      const activateTab = id => {
+        tabContents.forEach(c => c.classList.remove("active", "show", "hidden"));
+        const active = document.getElementById(id);
+        active.classList.add("active");
+        active.querySelectorAll(".timeline-content").forEach(b => {
+          b.classList.remove("show");
+          b.classList.add("hidden");
+          observer.observe(b);
+        });
+      };
+  
+      tabs.forEach(tab => {
+        tab.addEventListener("click", () => {
+          tabs.forEach(t => t.classList.remove("active"));
+          tab.classList.add("active");
+          activateTab(tab.dataset.tab);
+        });
+      });
+  
+      activateTab(tabs[0].dataset.tab);
+  
+      // --- Dynamic Team Section ---
+      const teamData = {
+        "2024/25": [
+          { name: "Jun Yeow Yeo",        role: "President",           image: "assets/images/2024_excos/president.jpeg",            link: "https://www.linkedin.com/in/junyeow/" },
+          { name: "Cheryl Ong",          role: "Vice President",      image: "assets/images/2024_excos/vice_president.jpg",        link: "https://www.linkedin.com/in/cherylongc/" },
+          { name: "Genevieve Chin Wan Qi", role: "Events Director",   image: "assets/images/2024_excos/events_director.jpg",      link: "https://www.linkedin.com/in/genevieve-chin-wan-qi-992b54295/" },
+          { name: "Kaavya Murugan",      role: "Marketing Director",  image: "assets/images/2024_excos/marketing_director.jpg",    link: "https://www.linkedin.com/in/kaavya-m/" },
+          { name: "Luqman Nurhakim",     role: "Partnerships Director", image: "assets/images/2024_excos/partnerships_director.jpeg", link: "https://www.linkedin.com/in/luqm4n/" },
+          { name: "Jaryl Liew",          role: "Operations Director", image: "assets/images/2024_excos/operations_director.jpeg",  link: "https://www.linkedin.com/in/jarylliewjw/" },
+          { name: "Abhishek Bhadkamkar", role: "Finance Director",    image: "assets/images/2024_excos/finance_director.jpeg",     link: "https://www.linkedin.com/in/abhishek-bhadkamkar-45ba59294/" }
+        ],
+        "2025/26": [
+          { name: "Juliana Ramos", role: "President",      image: "assets/images/2025_excos/Juliana.jpg",      link: "https://www.linkedin.com/in/juliana-charisse-r/" },
+          { name: "Divya Venkata", role: "Vice President",      image: "assets/images/2025_excos/Divya.jpg",      link: "https://www.linkedin.com/in/divya-gangaraju-venkata-89b151229/" },
+          { name: "Abhishek Bhadkamkar", role: "DSAcademy Director",      image: "assets/images/2025_excos/Abhishek.jpg",      link: "https://www.linkedin.com/in/abhishek-bhadkamkar-45ba59294/" },
+          { name: "Elly Haniz", role: "DACademy Director",      image: "assets/images/2025_excos/Elly.jpg",      link: "https://www.linkedin.com/in/ellyhaniz/" },
 
-    document.querySelectorAll(".tab-link").forEach((tab) => {
-  tab.addEventListener("click", () => {
-    const target = tab.dataset.tab;
+          { name: "Manya Goyal", role: "Partnerships Director",      image: "assets/images/2025_excos/Manya.jpg",      link: "https://www.linkedin.com/in/manyaamit-goyal/" },
+          { name: "Aditi Sanjay", role: "Logistics Director",      image: "assets/images/2025_excos/Aditi.jpg",      link: "https://dacsim.github.io" },
+          { name: "Caterine Santoso ", role: "Information Director",      image: "assets/images/2025_excos/Caterine.jpg",      link: "https://dacsim.github.io" },
+          { name: "Belinda Tsai", role: "Events Director",      image: "assets/images/2025_excos/Belinda.jpg",      link:"https://www.linkedin.com/in/belinda-tsai-7a707a22a/" },
 
-    // Remove active classes
-    document.querySelectorAll(".tab-link").forEach((t) => t.classList.remove("active"));
-    document.querySelectorAll(".tab-content").forEach((content) =>
-      content.classList.remove("active")
-    );
+          { name: "Manasa Murari", role: "Marketing Director",      image: "assets/images/2025_excos/Manasa.jpg",      link: "https://www.linkedin.com/in/manasamurari/" },
+          { name: "Sudha Badugu", role: "Finance Director",      image: "assets/images/2025_excos/Sudha.jpg",      link: "https://www.linkedin.com/in/sudha-raj-badugu-a5b221219/" },
+          { name: "Ching Xi Cheng", role: "Research Director",      image: "assets/images/2025_excos/Ching_Xi.jpg",      link: "https://www.linkedin.com/in/chengchingxi/" },
+          { name: "Michelle Chan", role: "Innovation Director",      image: "assets/images/2025_excos/Michelle.jpg",      link: "https://www.linkedin.com/in/mchellechan/" }
 
-    // Activate the selected tab
-    tab.classList.add("active");
-    document.getElementById(target).classList.add("active");
-  });
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-  const tabs = document.querySelectorAll(".tab-link");
-  const tabContents = document.querySelectorAll(".tab-content");
-  const timelineBlocks = document.querySelectorAll(".timeline-content");
-
-  const observerOptions = {
-    root: null,           // Viewport as root
-    threshold: 0.10,       // Trigger when 20% of the element is visible
-  };
-
-  // Intersection Observer Callback
-  const handleIntersection = (entries, observer) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("show");  // Trigger fade-in animation
+          // add more years/members as needed
+        ]
+      };
+  
+      function updateTeam(year) {
+        const container = document.getElementById("teamContainer");
+        container.innerHTML = "";
+  
+        const teamArray = teamData[year];
+        if (!teamArray) return;
+  
+        teamArray.forEach((member, index) => {
+          const side = index % 2 === 0 ? "left" : "right";
+          const item = document.createElement("div");
+          item.className = `timeline-item ${side}`;
+  
+          const content = document.createElement("div");
+          content.className = "timeline-content hidden";
+  
+          if (index === 0) {
+            // President slot: wrap dropdown in an h3
+            const heading = document.createElement("h3");
+            heading.className = "timeline_subheadings text-center mb-3";
+  
+            const select = document.createElement("select");
+            select.id = "teamYearSelector";
+            select.className = "form-control";
+  
+            for (const yr in teamData) {
+              const opt = document.createElement("option");
+              opt.value = yr;
+              opt.innerText = `${yr} EXCO`;
+              if (yr === year) opt.selected = true;
+              select.appendChild(opt);
+            }
+            select.addEventListener("change", () => updateTeam(select.value));
+  
+            heading.appendChild(select);
+            content.appendChild(heading);
+  
+          } else {
+            // Other members: green year heading as h3
+            const yearHead = document.createElement("h3");
+            yearHead.className = "timeline_subheadings";
+            yearHead.style.textAlign = "center";
+            yearHead.innerText = `${year} EXCO`;
+            content.appendChild(yearHead);
+          }
+  
+          // Member image/link
+          const a = document.createElement("a");
+          a.href = member.link;
+          a.target = "_blank";
+          a.className = "hover-darken";
+  
+          const img = document.createElement("img");
+          img.src = member.image;
+          img.alt = "EXCO selfie";
+          img.className = "timeline-image circle";
+  
+          a.appendChild(img);
+          content.appendChild(a);
+  
+          // Name (still h4)
+          const nameEl = document.createElement("h4");
+          nameEl.className = "timeline_subheadings";
+          nameEl.style.textAlign = "center";
+          nameEl.innerText = member.name;
+          content.appendChild(nameEl);
+  
+          // Role
+          const roleEl = document.createElement("p");
+          roleEl.style.textAlign = "center";
+          roleEl.innerText = member.role;
+          content.appendChild(roleEl);
+  
+          item.appendChild(content);
+          container.appendChild(item);
+        });
+  
+        // Observe new blocks for fade‑in
+        container.querySelectorAll(".timeline-content").forEach(b => {
+          b.classList.remove("show");
+          observer.observe(b);
+        });
       }
+  
+      // Initial render
+      updateTeam("2025/26");
     });
-  };
-
-  const observer = new IntersectionObserver(handleIntersection, observerOptions);
-
-  // Attach Observer to Each Timeline Content
-  const attachObservers = () => {
-    timelineBlocks.forEach((block) => {
-      block.classList.remove("show", "hidden");  // Reset animation state
-      block.classList.add("hidden");
-      observer.observe(block);  // Attach observer again
-    });
-  };
-
-  // Function to Activate a Tab
-  const activateTabContent = (targetId) => {
-    tabContents.forEach((content) => {
-      content.classList.remove("active", "show", "hidden");
-    });
-
-    const activeContent = document.getElementById(targetId);
-    activeContent.classList.add("active");
-
-    // Reset and Reattach Animation for Current Tab
-    const tabTimelineBlocks = activeContent.querySelectorAll(".timeline-content");
-    tabTimelineBlocks.forEach((block) => {
-      block.classList.remove("show");
-      block.classList.add("hidden");
-      observer.observe(block);  // Attach observer
-    });
-  };
-
-  // Handle Tab Clicks
-  tabs.forEach((tab) => {
-    tab.addEventListener("click", () => {
-      const target = tab.dataset.tab;
-
-      // Remove active class from all tabs
-      tabs.forEach((t) => t.classList.remove("active"));
-      tab.classList.add("active");
-
-      activateTabContent(target);  // Activate selected tab
-    });
-  });
-
-  // Reset Animation When Scrolling Back to Top
-  window.addEventListener("scroll", () => {
-    if (window.scrollY === 0) {
-      attachObservers();  // Reset animations when at the top of the page
-    }
-  });
-
-  // Initial Load
-  const initialTab = tabs[0].dataset.tab;
-  activateTabContent(initialTab);
-});
-</script>
+  </script>
+  
 </body>
 </html>
